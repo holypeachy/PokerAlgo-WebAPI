@@ -1,9 +1,11 @@
 namespace PokerAlgoAPI.Models;
 
-public record Winner
+public record HandRespose
 {
-    public string HoleCards { get; set; }
+    public required string HoleCards { get; set; }
     public string HandType { get; set; }
     public string WinningHand { get; set; }
     public string PrettyName { get; set; }
+    public string WinChance { get; set; }
+    public string TieChance { get; set; }
 }

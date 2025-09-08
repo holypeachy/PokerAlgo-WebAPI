@@ -8,12 +8,11 @@ public static class PokerAlgoEndPoints
 {
     public static void MapEndPoints(WebApplication app)
     {
-        app.MapPost("/winners", ([FromBody] WinnersRequest request, IPokerAlgoService service) => GetWinners(request, service));
-        app.MapPost("/hand", () => GetHand());
-        app.MapPost("/chances", () => GetChances());
+        app.MapPost("/winners", ([FromBody] Request request, IPokerAlgoService service) => GetWinners(request, service));
+        app.MapPost("/hands", ([FromBody] Request request, IPokerAlgoService service) => GetHands(request, service));
     }
 
-    private static IResult GetWinners(WinnersRequest request, IPokerAlgoService service)
+    private static IResult GetWinners(Request request, IPokerAlgoService service)
     {
         try
         {
@@ -25,13 +24,15 @@ public static class PokerAlgoEndPoints
         }
     }
 
-    private static IResult GetHand()
+    private static IResult GetHands(Request request, IPokerAlgoService service)
     {
-        return Results.Ok("Endpoint for getting the winning hand of a player.");
-    }
-    
-    private static IResult GetChances()
-    {
-        return Results.Ok("Endpoint for getting the chances of a player winnning.");
+        try
+        {
+            return Results.Ok(service.GetHands(request));
+        }
+        catch (Exception ex)
+        {
+            return Results.BadRequest(ex.GetType().Name + " - Message: " + ex.Message);
+        }
     }
 }

@@ -3,7 +3,7 @@ using PokerAlgoAPI.Exceptions;
 
 namespace PokerAlgoAPI.Services;
 
-public static class CardParser
+public static class Parser
 {
     private static readonly Dictionary<char, int> _rank = new()
     {
@@ -80,25 +80,27 @@ public static class CardParser
         {
             throw new NotEnoughPlayersExceptionException("Count: " + players.Count);
         }
+        else if (players.Count > 5)
+        {
+            throw new Exception("Due to current limitations, there should be 5 or less players");
+        }
 
         return players;
     }
 
     public static List<Card> ParseCommunity(string communityCards)
     {
-        if (string.IsNullOrEmpty(communityCards)) throw new Exception("communityCards empty");
-
         List<Card> cards = new();
         string[] split = communityCards.Split(',');
-        foreach (string s in split)
+        if (communityCards.Length != 0)
         {
-            cards.Add(ParseCard(s));
+            foreach (string s in split)
+            {
+                cards.Add(ParseCard(s));
+            }
         }
 
-        if (cards.Count != 5)
-        {
-            throw new IncorrectFormatExceptionException("communityCard Count: " + cards.Count);
-        }
+        if (cards.Count > 5) throw new IncorrectNumberOfCommunityCardsException("communityCard Count violates poker rules: " + cards.Count);
 
         return cards;
     }
