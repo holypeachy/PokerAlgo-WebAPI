@@ -4,7 +4,7 @@
   - /winners provides the winner(s).
   - /hands provides the winning hand and individual chances of winning (independent from other players) per player.
 - Using Swashbuckle/Swagger for automated documentation and a simple front end for developers.
-- Solid error handling and fully tested.
+- Solid error handling and unit tested (parser and PokerAlgo service).
 
 > Cards must be in poker notation: "Ac,6h,Td,2s"
 
@@ -17,7 +17,7 @@ git clone git@github.com:holypeachy/PokerAlgo-WebAPI.git
 cd PokerAlgo-WebAPI
 dotnet run
 ```
-Then open localhost:5000/ which will take you to swagger automatically. Alternatively you could go to localhost:5000/swagger.
+Then open http://localhost:5000/ which will take you to swagger automatically. Alternatively you could go to http://localhost:5000/swagger.
 
 ### Schema:
 ```json
