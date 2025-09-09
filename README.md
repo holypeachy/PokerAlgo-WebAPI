@@ -1,14 +1,39 @@
 # 🍑 ASP.NET Minimal Web API - A simple Web API for my [PokerAlgo](https://github.com/holypeachy/PokerAlgo).
 #### The first of a series of projects to practice and showcase my skills with ASP.NET.
 - 2 endpoints:
-  - /winners provides the winner(s) given 2-5 players and all 5 community cards.
-  - /hands provides the winning hand and individual chances of winning (independent from other players) per player, given 2-5 players and none or any community cards.
+  - /winners provides the winner(s).
+  - /hands provides the winning hand and individual chances of winning (independent from other players) per player.
 - Using Swashbuckle/Swagger for automated documentation and a simple front end for developers.
 - Solid error handling and fully tested.
 
 > Cards must be in poker notation: "Ac,6h,Td,2s"
 
-## Output Example:
+> Players must each have 2 cards, and up to 5 players are supported.
+
+## 🚀 Getting Started
+
+```bash
+git clone git@github.com:holypeachy/PokerAlgo-WebAPI.git
+cd PokerAlgo-WebAPI
+dotnet run
+```
+Then open localhost:5000/ which will take you to swagger automatically. Alternatively you could go to localhost:5000/swagger.
+
+### Schema:
+```json
+{
+  "players": [ "Th,Qd", "6c,Kd" ],
+  "communityCards": "4d,5c,Tc,Ad,2c"
+}
+```
+
+## 🧰 Tech Stack
+
+- ASP.NET 9 Minimal API
+- Swagger / Swashbuckle
+- Custom Parsing & Simulation Logic from [PokerAlgo](https://github.com/holypeachy/PokerAlgo)
+
+## 📤 Output Example:
 
 ### /winners
 ```json
