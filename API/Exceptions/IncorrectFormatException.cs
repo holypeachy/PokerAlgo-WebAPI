@@ -1,9 +1,9 @@
 namespace PokerAlgoAPI.Exceptions;
 
 [Serializable]
-public class IncorrectFormatExceptionException : Exception
+public class IncorrectFormatException : Exception
 {
-    public IncorrectFormatExceptionException() { }
-    public IncorrectFormatExceptionException(string message) : base(message) { }
-    public IncorrectFormatExceptionException(string message, System.Exception inner) : base(message, inner) { }
+    public IncorrectFormatException() { }
+    public IncorrectFormatException(string message) : base(message) { }
+    public IncorrectFormatException(string message, System.Exception inner) : base(message, inner) { }
 }

@@ -1,6 +1,6 @@
 namespace PokerAlgoAPI.Models;
 
-public record HandRespose
+public record HandResponse
 {
     public required string HoleCards { get; set; }
     public string HandType { get; set; }

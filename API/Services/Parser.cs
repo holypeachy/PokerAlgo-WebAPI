@@ -58,7 +58,7 @@ public static class Parser
 
     public static List<Player> ParsePlayers(string[] playerStrings)
     {
-        if (playerStrings.Length < 1) throw new Exception("playerStrings empty");
+        if (playerStrings.Length < 1) throw new IncorrectFormatException("Player string is empty");
 
         List<Player> players = new();
         int count = 1;
@@ -69,7 +69,7 @@ public static class Parser
 
             if (split.Length != 2)
             {
-                throw new IncorrectFormatExceptionException($"Bad string: \"{s}\"");
+                throw new IncorrectFormatException($"Bad string: \"{s}\"");
             }
 
             Pair pair = new(ParseCard(split[0]), ParseCard(split[1]));
@@ -78,11 +78,11 @@ public static class Parser
 
         if (players.Count < 2)
         {
-            throw new NotEnoughPlayersExceptionException("Count: " + players.Count);
+            throw new BadNumberOfPlayersException("Count: " + players.Count);
         }
         else if (players.Count > 5)
         {
-            throw new Exception("Due to current limitations, there should be 5 or less players");
+            throw new BadNumberOfPlayersException("Due to current limitations, there should be 2-5 players and no more.");
         }
 
         return players;
@@ -92,6 +92,7 @@ public static class Parser
     {
         List<Card> cards = new();
         string[] split = communityCards.Split(',');
+
         if (communityCards.Length != 0)
         {
             foreach (string s in split)
@@ -100,7 +101,7 @@ public static class Parser
             }
         }
 
-        if (cards.Count > 5) throw new IncorrectNumberOfCommunityCardsException("communityCard Count violates poker rules: " + cards.Count);
+        if (cards.Count > 5) throw new BadNumberOfCommunityCardsException("Community Cards Count violates poker rules: " + cards.Count);
 
         return cards;
     }
@@ -112,7 +113,7 @@ public static class Parser
 
         if (s.Length != 2)
         {
-            throw new IncorrectFormatExceptionException($"Bad string: \"{s}\"");
+            throw new IncorrectFormatException($"Bad string: \"{s}\"");
         }
         try
         {
@@ -120,7 +121,7 @@ public static class Parser
         }
         catch
         {
-            throw new IncorrectFormatExceptionException($"Bad string: \"{s}\"");
+            throw new IncorrectFormatException($"Bad string: \"{s}\"");
         }
 
 
@@ -130,7 +131,7 @@ public static class Parser
         }
         catch
         {
-            throw new IncorrectFormatExceptionException($"Bad string: \"{s}\"");
+            throw new IncorrectFormatException($"Bad string: \"{s}\"");
         }
 
         return new Card(rank, suit, false);
@@ -138,17 +139,11 @@ public static class Parser
 
     public static string CardListToString(List<Card> cards)
     {
-        string s = string.Empty;
-        foreach (Card c in cards)
-        {
-            s += _cRank[c.Rank] + "" + _cSuit[c.Suit] + ',';
-        }
-        s = s.Remove(s.Length - 1);
-        return s;
+        return string.Join(',', cards.Select(CardToString));
     }
 
     public static string CardToString(Card card)
     {
-        return string.Empty + _cRank[card.Rank] + _cSuit[card.Suit];
+        return $"{_cRank[card.Rank]}{_cSuit[card.Suit]}";
     }
 }

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FluentAssertions;
 using PokerAlgo;
 using PokerAlgoAPI.Exceptions;
@@ -20,16 +21,16 @@ public class ParserTests
     public void ParseCard_Bad_formatting()
     {
         string s = "4cs";
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParseCard(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParseCard(s));
 
         s = "4";
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParseCard(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParseCard(s));
 
         s = "4o";
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParseCard(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParseCard(s));
 
         s = "1c";
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParseCard(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParseCard(s));
     }
 
     [Fact]
@@ -50,13 +51,24 @@ public class ParserTests
     {
         string[] s = ["4c, Td", "6s,Kh"];
 
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParsePlayers(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParsePlayers(s));
 
         s = ["4c,Td ", "6s,Kh"];
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParsePlayers(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParsePlayers(s));
 
         s = ["4c,(d", "6s,Kh"];
-        Assert.Throws<IncorrectFormatExceptionException>(() => Parser.ParsePlayers(s));
+        Assert.Throws<IncorrectFormatException>(() => Parser.ParsePlayers(s));
+    }
+
+    [Fact]
+    public void ParsePlayers_Bad_Number_Of_Players()
+    {
+        string[] s = ["4c,Td", "6c,Kh", "2c,4d", "7h,Qd", "5s,6d", "Ac,As"];
+
+        Assert.Throws<BadNumberOfPlayersException>(() => Parser.ParsePlayers(s));
+
+        s = ["4c,Td"];
+        Assert.Throws<BadNumberOfPlayersException>(() => Parser.ParsePlayers(s));
     }
 
     [Fact]
@@ -91,5 +103,12 @@ public class ParserTests
         expected = new();
 
         result.Should().BeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public void ParseCommunity_Bad_Number_Of_Community_Cards()
+    {
+        string s = "4c,8h,Tc,9s,Ah,Ac";
+        Assert.Throws<BadNumberOfCommunityCardsException>(() => Parser.ParseCommunity(s));
     }
 }
