@@ -9,6 +9,10 @@
 > Cards must be in poker notation: "Ac,6h,Td,2s"
 
 > Players must each have 2 cards, and up to 5 players are supported.
+> 
+## ✅ Possible Improvements
+- Implement rate-limiting middleware
+- I would like to add the "actual" probabilities of players winning, but I would need to add that feature to PokerAlgo first
 
 ## 🚀 Getting Started
 
