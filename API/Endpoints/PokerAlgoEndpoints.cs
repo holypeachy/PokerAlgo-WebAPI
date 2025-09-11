@@ -8,11 +8,14 @@ public static class PokerAlgoEndPoints
 {
     public static void MapEndPoints(WebApplication app)
     {
-        app.MapPost("/winners", ([FromBody] Request request, IPokerAlgoService service) => GetWinners(request, service));
-        app.MapPost("/hands", ([FromBody] Request request, IPokerAlgoService service) => GetHands(request, service));
+        app.MapPost("/winners", GetWinners).WithTags("PokerAlgo");
+        app.MapPost("/hands", GetHands).WithTags("PokerAlgo");
     }
 
-    private static IResult GetWinners(Request request, IPokerAlgoService service)
+    /// <summary>
+    /// Gets the winner or winners from provided players and community cards.
+    /// </summary>
+    private static IResult GetWinners([FromBody] Request request, IPokerAlgoService service)
     {
         try
         {
@@ -24,6 +27,9 @@ public static class PokerAlgoEndPoints
         }
     }
 
+    /// <summary>
+    /// Gets the winning hand of each player as well as individual chances of winning and tying from provided players and community cards.
+    /// </summary>
     private static IResult GetHands(Request request, IPokerAlgoService service)
     {
         try

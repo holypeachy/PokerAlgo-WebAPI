@@ -1,12 +1,13 @@
-using Swashbuckle.AspNetCore.Annotations;
-
 namespace PokerAlgoAPI.Models;
 
+/// <summary>
+/// Represents the request body for evaluating poker hands.
+/// </summary>
 public class Request
 {
-    [SwaggerSchema(Description = "Each string represents a player's hole cards separated by a comma in poker notation. \"Ac,Tc\"")]
+    /// <summary>Array of player hole cards (e.g., "Th,Qd").</summary>
     public required string[] Players { get; set; }
     
-    [SwaggerSchema(Description = "Community cards in poker notation, comma-separated, must be all 5.")]
+    /// <summary>Community cards (e.g., "4d,5c,Tc,Ad,2c").</summary>
     public required string CommunityCards { get; set; }
 }
