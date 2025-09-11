@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "PokerAlgoAPI",
-        Description = "An ASP.NET Core Web Minmal API for evaluating hands and determining the winner of a Texas Hold 'em Game.",
+        Description = "An ASP.NET Core Minmal Web API for evaluating hands and determining the winner of a Texas Hold 'em Game.",
         Contact = new OpenApiContact
         {
             Name = "PokerAlgo GitHub",
