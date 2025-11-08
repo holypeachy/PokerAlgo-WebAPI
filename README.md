@@ -1,5 +1,5 @@
 # 🍑 ASP.NET Minimal API - A simple Web API for my [PokerAlgo](https://github.com/holypeachy/PokerAlgo).
-#### The first of a series of projects to practice and showcase my skills with ASP.NET.
+#### The first of a series of projects to practice my skills with ASP.NET.
 - 2 endpoints:
   - /winners provides the winner(s).
   - /hands provides the winning hand and individual chances of winning (independent from other players) per player.
