@@ -1,43 +1,52 @@
-# 🍑 ASP.NET Minimal API - A simple Web API for my [PokerAlgo](https://github.com/holypeachy/PokerAlgo).
-#### The first of a series of projects to practice my skills with ASP.NET.
-- 2 endpoints:
-  - /winners provides the winner(s).
-  - /hands provides the winning hand and individual chances of winning (independent from other players) per player.
-- Using Swashbuckle/Swagger for automated documentation and a simple front end for developers.
-- Solid error handling and unit tested (parser and PokerAlgo service).
+# PokerAlgo Web API
 
-> Cards must be in poker notation: "Ac,6h,Td,2s"
+A small ASP.NET Core Minimal API that exposes selected [PokerAlgo](https://github.com/holypeachy/PokerAlgo) operations over HTTP.
 
-> Players must each have 2 cards, and up to 5 players are supported.
-> 
-## ✅ Possible Improvements
-- Implement rate-limiting middleware
-- I would like to add the "actual" probabilities of players winning, but I would need to add that feature to PokerAlgo first
+**Built with:** C# | ASP.NET Core 9 | Minimal APIs | Swagger/Swashbuckle | xUnit
 
-## 🚀 Getting Started
+## Overview
 
-```bash
-git clone git@github.com:holypeachy/PokerAlgo-WebAPI.git
-cd PokerAlgo-WebAPI
-dotnet run
-```
-Then open http://localhost:5000/ which will take you to swagger automatically. Alternatively you could go to http://localhost:5000/swagger.
+I built this as a focused ASP.NET practice project after publishing PokerAlgo. The API parses compact poker notation, validates the request, delegates the actual hand logic to the PokerAlgo library, and returns structured JSON responses.
 
-### Schema:
+Swagger provides the interactive API documentation and is served as the application's default page.
+
+## Endpoints
+
+| Endpoint | Description |
+| --- | --- |
+| `POST /winners` | Determines the winner or tied winners from two to five players and a complete five-card board. |
+| `POST /hands` | Returns each player's evaluated hand and independent win and tie estimates. |
+
+Cards use standard compact poker notation, such as `Ac`, `6h`, `Td`, or `2s`. Each player must have exactly two hole cards.
+
 ```json
 {
-  "players": [ "Th,Qd", "6c,Kd" ],
+  "players": ["Th,Qd", "6c,Kd"],
   "communityCards": "4d,5c,Tc,Ad,2c"
 }
 ```
 
-## 🧰 Tech Stack
+## Getting Started
 
-- ASP.NET 9 Minimal API
-- Swagger / Swashbuckle
-- Custom Parsing & Simulation Logic from [PokerAlgo](https://github.com/holypeachy/PokerAlgo)
+Requires the .NET 9 SDK.
 
-## 📤 Output Example:
+```bash
+git clone https://github.com/holypeachy/PokerAlgo-WebAPI.git
+cd PokerAlgo-WebAPI
+dotnet run --project API
+```
+
+Open [http://localhost:5234/swagger](http://localhost:5234/swagger) to use the Swagger interface.
+
+The pre-flop lookup files are included in `API/Data/Preflop`. The current implementation contains a machine-specific path in `PokerAlgoService.cs`, which must be updated before pre-flop requests will work on another system.
+
+Run the tests with:
+
+```bash
+dotnet test
+```
+
+## Images
 
 ### /winners
 ```json
